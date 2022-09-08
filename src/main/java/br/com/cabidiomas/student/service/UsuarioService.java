@@ -7,11 +7,14 @@ import lombok.RequiredArgsConstructor;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
 //    @Autowired
     private final UsuarioRepository repository;
@@ -24,15 +27,15 @@ public class UsuarioService {
         return repository.save(usuario);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = repository.findByUsername(username)
-//                .orElseThrow(() -> new UsernameNotFoundException("Login nao encontrado"));
-//        return org.springframework.security.core.userdetails.User
-//                .builder()
-//                .username(user.getUsername())
-//                .password(user.getPassword())
-//                .roles("USER")
-//                .build();
-//    }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario user = repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Login nao encontrado"));
+        return org.springframework.security.core.userdetails.User
+                .builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .roles("USER")
+                .build();
+    }
 }
