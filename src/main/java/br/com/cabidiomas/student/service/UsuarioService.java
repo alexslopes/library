@@ -1,7 +1,7 @@
 package br.com.cabidiomas.student.service;
 
 import br.com.cabidiomas.student.model.Usuario;
-import br.com.cabidiomas.student.repository.UserRepository;
+import br.com.cabidiomas.student.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService  {
+public class UsuarioService {
 
 //    @Autowired
-    private final UserRepository repository;
+    private final UsuarioRepository repository;
 
     public Usuario save(Usuario usuario) throws Exception {
         boolean exists = repository.existsByUsername(usuario.getUsername());
