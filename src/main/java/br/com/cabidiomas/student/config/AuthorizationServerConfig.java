@@ -48,7 +48,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         clients
                 .inMemory()
-                .withClient("my-angular-app")
+                .withClient("student-app")
                 .secret("@321")
                 .scopes("read", "write")
                 .authorizedGrantTypes("password")
