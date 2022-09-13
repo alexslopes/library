@@ -1,9 +1,6 @@
 package br.com.cabidiomas.student.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +8,8 @@ import java.util.List;
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
 
     @Id
