@@ -1,5 +1,6 @@
 package br.com.cabidiomas.student.service;
 
+import br.com.cabidiomas.student.controller.dto.StudentDto;
 import br.com.cabidiomas.student.model.Role;
 import br.com.cabidiomas.student.model.RolesEnum;
 import br.com.cabidiomas.student.model.Usuario;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +55,9 @@ public class UsuarioService implements UserDetailsService {
         PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
 
         return repository.findAllByRoles(pageRequest, role);
+
+
     }
+
+
 }
