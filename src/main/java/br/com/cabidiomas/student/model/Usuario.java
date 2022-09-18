@@ -16,8 +16,11 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, name = "username")
-    private String username;
+    @Column(name = "name")
+    private String name;
+
+    @Column(unique = true, name = "login")
+    private String login;
 
     @Column(name = "password")
     private String password;
