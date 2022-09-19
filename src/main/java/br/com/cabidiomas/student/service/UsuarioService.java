@@ -1,6 +1,5 @@
 package br.com.cabidiomas.student.service;
 
-import br.com.cabidiomas.student.controller.dto.StudentDto;
 import br.com.cabidiomas.student.model.Role;
 import br.com.cabidiomas.student.model.RolesEnum;
 import br.com.cabidiomas.student.model.Usuario;
@@ -11,16 +10,14 @@ import lombok.RequiredArgsConstructor;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -55,9 +52,32 @@ public class UsuarioService implements UserDetailsService {
         PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
 
         return repository.findAllByRoles(pageRequest, role);
-
-
     }
 
 
+    public void updateUser(Integer id, Usuario usuario) {
+        repository.findById(id).
+                map( cliente -> {
+                    usuario.setName(usuario.getName());
+                    usuario.setLogin(usuario.getLogin());
+                    return repository.save(usuario);
+                }).
+                orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") );
+    }
+
+    public Usuario findById(Integer id) {
+        return repository.findById(id).
+                orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") );
+    }
+
+    public void delete(Integer id) {
+        repository.
+                findById(id).
+                map( user -> {
+                            repository.delete(user);
+                            return Void.TYPE;
+                        }
+                ).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+    }
 }
