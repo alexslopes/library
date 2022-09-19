@@ -1,8 +1,8 @@
-package br.com.cabidiomas.student.service;
+package br.com.cabidiomas.student.user.service;
 
 
-import br.com.cabidiomas.student.model.Role;
-import br.com.cabidiomas.student.repository.RoleRepository;
+import br.com.cabidiomas.student.user.model.Role;
+import br.com.cabidiomas.student.user.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

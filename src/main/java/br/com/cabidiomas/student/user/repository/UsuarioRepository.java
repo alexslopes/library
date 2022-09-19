@@ -1,12 +1,11 @@
-package br.com.cabidiomas.student.repository;
+package br.com.cabidiomas.student.user.repository;
 
-import br.com.cabidiomas.student.model.Role;
-import br.com.cabidiomas.student.model.Usuario;
+import br.com.cabidiomas.student.user.model.Role;
+import br.com.cabidiomas.student.user.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>  {

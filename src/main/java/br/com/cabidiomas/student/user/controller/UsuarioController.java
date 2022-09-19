@@ -1,10 +1,10 @@
-package br.com.cabidiomas.student.controller;
+package br.com.cabidiomas.student.user.controller;
 
-import br.com.cabidiomas.student.controller.dto.UsuarioDto;
-import br.com.cabidiomas.student.model.Role;
-import br.com.cabidiomas.student.model.Usuario;
-import br.com.cabidiomas.student.service.RoleService;
-import br.com.cabidiomas.student.service.UsuarioService;
+import br.com.cabidiomas.student.user.controller.dto.UsuarioDto;
+import br.com.cabidiomas.student.user.model.Role;
+import br.com.cabidiomas.student.user.model.Usuario;
+import br.com.cabidiomas.student.user.service.RoleService;
+import br.com.cabidiomas.student.user.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,14 +29,20 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody @Valid UsuarioDto usuario) {
+    public UsuarioDto save(@RequestBody @Valid UsuarioDto usuario) {
         Role role = roleService.findRoleById(usuario.getRoleId());
         try {
-            usuarioService.save(Usuario.builder()
+            var user = usuarioService.save(Usuario.builder()
                     .login(usuario.getLogin())
                     .name(usuario.getName())
                     .password(usuario.getPassword())
                     .roles(Arrays.asList(role)).build());
+
+            return UsuarioDto.builder()
+                    .id(user.getId())
+                    .name((user.getName()))
+                    .login(user.getLogin())
+                    .password(user.getPassword()).build();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student.controller.dto;
+package br.com.cabidiomas.student.user.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

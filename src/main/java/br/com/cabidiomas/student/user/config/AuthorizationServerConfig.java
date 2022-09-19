@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student.config;
+package br.com.cabidiomas.student.user.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

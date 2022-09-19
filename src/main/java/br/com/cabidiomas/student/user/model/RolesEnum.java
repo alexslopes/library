@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student.model;
+package br.com.cabidiomas.student.user.model;
 
 import lombok.Getter;
 

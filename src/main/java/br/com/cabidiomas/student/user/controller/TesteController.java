@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student.controller;
+package br.com.cabidiomas.student.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
