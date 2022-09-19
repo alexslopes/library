@@ -55,7 +55,7 @@ public class UsuarioController {
 
         return new PageImpl<>(
                 usuarioDtos,
-                pageRequest, userPage.getSize());
+                pageRequest, userPage.getTotalElements());
     }
 
     @PutMapping("{id}")
