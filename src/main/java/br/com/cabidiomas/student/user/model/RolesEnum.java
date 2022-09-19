@@ -4,16 +4,16 @@ import lombok.Getter;
 
 @Getter
 public enum RolesEnum {
-    ADMIN(1L),
-    STUDENT(2L);
+    ADMIN(1),
+    STUDENT(2);
 
-    private final Long id;
+    private final Integer id;
 
-    RolesEnum(Long id) {
+    RolesEnum(Integer id) {
         this.id = id;
     }
 
-    public static RolesEnum getRoleByName(Integer id){
+    public static RolesEnum getRoleById(Integer id){
         switch (id){
             case 1:
                 return ADMIN;
@@ -23,4 +23,6 @@ public enum RolesEnum {
                 return null;
         }
     }
+
+
 }

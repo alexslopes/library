@@ -1,6 +1,7 @@
 package br.com.cabidiomas.student.user.controller;
 
 import br.com.cabidiomas.student.user.controller.dto.UsuarioDto;
+import br.com.cabidiomas.student.user.controller.dto.UsuarioMapper;
 import br.com.cabidiomas.student.user.model.Role;
 import br.com.cabidiomas.student.user.model.Usuario;
 import br.com.cabidiomas.student.user.service.RoleService;
@@ -30,19 +31,11 @@ public class UsuarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioDto save(@RequestBody @Valid UsuarioDto usuario) {
-        Role role = roleService.findRoleById(usuario.getRoleId());
+        var userEntity = UsuarioMapper.dtoToEntity(usuario);
         try {
-            var user = usuarioService.save(Usuario.builder()
-                    .login(usuario.getLogin())
-                    .name(usuario.getName())
-                    .password(usuario.getPassword())
-                    .roles(Arrays.asList(role)).build());
+            var user = usuarioService.save(userEntity);
 
-            return UsuarioDto.builder()
-                    .id(user.getId())
-                    .name((user.getName()))
-                    .login(user.getLogin())
-                    .password(user.getPassword()).build();
+            return UsuarioMapper.dtoToEntity(user);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -56,10 +49,7 @@ public class UsuarioController {
     ){
         var userPage =  usuarioService.findAllStudents(page, pageSize, sort);
 
-        List<UsuarioDto> usuarioDtos = userPage.get().map(user -> UsuarioDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .login(user.getLogin()).build()).collect(Collectors.toList());
+        List<UsuarioDto> usuarioDtos = userPage.get().map(user -> UsuarioMapper.dtoToEntity(user)).collect(Collectors.toList());
 
         PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
 
@@ -70,20 +60,18 @@ public class UsuarioController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateStudent( @PathVariable Integer id, @RequestBody @Valid UsuarioDto usuario) {
-        usuarioService.updateUser(id, Usuario.builder()
-                .name(usuario.getName())
-                .login(usuario.getLogin()).build());
+    public void updateStudent( @PathVariable Long id, @RequestBody @Valid UsuarioDto usuario) {
+        usuarioService.updateUser(id, UsuarioMapper.dtoToEntity(usuario));
     }
 
     @GetMapping("{id}")
-    public Usuario findById( @PathVariable Integer id) {
+    public Usuario findById( @PathVariable Long id) {
         return usuarioService.findById(id);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Integer id){
+    public void deletar(@PathVariable Long id){
         usuarioService.delete(id);
     }
 

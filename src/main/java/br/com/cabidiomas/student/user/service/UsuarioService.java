@@ -55,7 +55,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
 
-    public void updateUser(Integer id, Usuario usuario) {
+    public void updateUser(long id, Usuario usuario) {
         repository.findById(id).
                 map( cliente -> {
                     usuario.setName(usuario.getName());
@@ -65,12 +65,12 @@ public class UsuarioService implements UserDetailsService {
                 orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") );
     }
 
-    public Usuario findById(Integer id) {
+    public Usuario findById(Long id) {
         return repository.findById(id).
                 orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado") );
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         repository.
                 findById(id).
                 map( user -> {

@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UsuarioDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private String login;
     private String password;
     @Builder.Default
-    private Long roleId = 2L;
+    private Integer roleId = 2;
 }
