@@ -11,11 +11,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +33,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Secured("ROLE_ADMIN")
     public UsuarioDto save(@RequestBody @Valid UsuarioDto usuario) {
         var userEntity = UsuarioMapper.dtoToEntity(usuario);
         try {
@@ -43,6 +46,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/obter-alunos")
+    @Secured("ROLE_ADMIN")
     public Page<UsuarioDto> getStudents(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
