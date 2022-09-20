@@ -31,4 +31,14 @@ public class Usuario {
             inverseJoinColumns=@JoinColumn(name="role_id")
     )
     private List<Role> roles;
+
+    public Usuario(Usuario user) {
+        super();
+        this.name = user.getName();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.roles = user.getRoles();
+        this.id = user.getId();
+    }
+
 }

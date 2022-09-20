@@ -20,7 +20,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         //Remover em produçao
         http
                 .authorizeRequests()
-                .antMatchers("/api/usuarios").permitAll()
+                .antMatchers("/api/usuarios").authenticated()
                 .antMatchers("/api/teste").authenticated()
                 .antMatchers("/h2-console/**").permitAll();
 

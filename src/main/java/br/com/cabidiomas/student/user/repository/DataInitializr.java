@@ -29,8 +29,8 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
         List<Usuario> users = userRepository.findAll();
 
         if (users.isEmpty()) {
-            createUser("Admin", "admin", passwordEncoder.encode("123456"), RolesEnum.ADMIN);
-            createUser("Cliente", "cliente", passwordEncoder.encode("123456"), RolesEnum.STUDENT);
+            createUser("Admin", "admin", passwordEncoder.encode("123456"), RolesEnum.ROLE_ADMIN);
+            createUser("Cliente", "cliente", passwordEncoder.encode("123456"), RolesEnum.ROLE_STUDENT);
         }
 
     }

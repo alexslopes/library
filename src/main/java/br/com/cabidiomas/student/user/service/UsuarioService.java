@@ -13,11 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -38,16 +41,11 @@ public class UsuarioService implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Usuario user = repository.findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("Login nao encontrado"));
-        return org.springframework.security.core.userdetails.User
-                .builder()
-                .username(user.getLogin())
-                .password(user.getPassword())
-                .roles(user.getRoles().toString())
-                .build();
+        return new UserRepositoryUserDetails(user);
     }
 
     public Page<Usuario> findAllStudents(Integer page, Integer pageSize, String sortColumn) {
-        Role role = Role.builder().id(RolesEnum.STUDENT.getId()).name(RolesEnum.STUDENT.name()).build();
+        Role role = Role.builder().id(RolesEnum.ROLE_STUDENT.getId()).name(RolesEnum.ROLE_STUDENT.name()).build();
         Sort sort =  Sort.by(Sort.Direction.ASC, sortColumn);
         PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
 
@@ -83,5 +81,50 @@ public class UsuarioService implements UserDetailsService {
 
     public Usuario findByLogin(String name) {
         return repository.findByLogin(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+    }
+
+    private final static class UserRepositoryUserDetails extends Usuario implements UserDetails {
+
+        private static final long serialVersionUID = 1L;
+
+        private UserRepositoryUserDetails(Usuario user) {
+            super(user);
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return getRoles();
+        }
+
+        @Override
+        public String getUsername() {
+            return this.getLogin();
+        }
+
+        @Override
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+
+        @Override
+        public String getPassword() {
+            return  super.getPassword();
+        }
+
     }
 }
