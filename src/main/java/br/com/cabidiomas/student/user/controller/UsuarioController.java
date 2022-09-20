@@ -2,7 +2,6 @@ package br.com.cabidiomas.student.user.controller;
 
 import br.com.cabidiomas.student.user.controller.dto.UsuarioDto;
 import br.com.cabidiomas.student.user.controller.dto.UsuarioMapper;
-import br.com.cabidiomas.student.user.model.Role;
 import br.com.cabidiomas.student.user.model.Usuario;
 import br.com.cabidiomas.student.user.service.RoleService;
 import br.com.cabidiomas.student.user.service.UsuarioService;
@@ -12,12 +11,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,7 +36,7 @@ public class UsuarioController {
         try {
             var user = usuarioService.save(userEntity);
 
-            return UsuarioMapper.dtoToEntity(user);
+            return UsuarioMapper.entityToDto(user);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -49,7 +50,7 @@ public class UsuarioController {
     ){
         var userPage =  usuarioService.findAllStudents(page, pageSize, sort);
 
-        List<UsuarioDto> usuarioDtos = userPage.get().map(user -> UsuarioMapper.dtoToEntity(user)).collect(Collectors.toList());
+        List<UsuarioDto> usuarioDtos = userPage.get().map(UsuarioMapper::entityToDto).collect(Collectors.toList());
 
         PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
 
@@ -73,6 +74,31 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long id){
         usuarioService.delete(id);
+    }
+
+    @GetMapping("obter-dados-conta")
+    public UsuarioDto getAccountInfo(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        var user = usuarioService.findByLogin(auth.getName());
+
+        return UsuarioMapper.entityToDto(user);
+    }
+
+    @PutMapping("atualizar-dados-conta")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateAccountInfo(@RequestBody @Valid UsuarioDto usuarioDto) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        var user = usuarioService.findByLogin(auth.getName());
+
+        if(!Objects.equals(user.getId(), usuarioDto.getId())){
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Acesso não autorizado");
+        }
+
+        usuarioDto.setRoleId(user.getRoles().get(0).getId());
+
+        usuarioService.updateUser(user.getId(), UsuarioMapper.dtoToEntity(usuarioDto));
     }
 
 }

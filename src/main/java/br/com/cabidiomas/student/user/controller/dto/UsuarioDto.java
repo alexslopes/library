@@ -15,6 +15,5 @@ public class UsuarioDto {
     private String name;
     private String login;
     private String password;
-    @Builder.Default
-    private Integer roleId = 2;
+    private Integer roleId;
 }

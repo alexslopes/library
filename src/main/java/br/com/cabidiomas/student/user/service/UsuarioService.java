@@ -40,7 +40,7 @@ public class UsuarioService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Login nao encontrado"));
         return org.springframework.security.core.userdetails.User
                 .builder()
-                .username(user.getName())
+                .username(user.getLogin())
                 .password(user.getPassword())
                 .roles(user.getRoles().toString())
                 .build();
@@ -79,5 +79,9 @@ public class UsuarioService implements UserDetailsService {
                         }
                 ).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
+    }
+
+    public Usuario findByLogin(String name) {
+        return repository.findByLogin(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
     }
 }
