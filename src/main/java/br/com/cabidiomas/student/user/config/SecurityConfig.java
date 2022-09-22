@@ -1,6 +1,6 @@
-package br.com.cabidiomas.student.user.config;
+package br.com.cabidiomas.library.user.config;
 
-import br.com.cabidiomas.student.user.service.UsuarioService;
+import br.com.cabidiomas.library.user.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

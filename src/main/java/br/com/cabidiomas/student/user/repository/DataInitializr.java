@@ -1,8 +1,8 @@
-package br.com.cabidiomas.student.user.repository;
+package br.com.cabidiomas.library.user.repository;
 
-import br.com.cabidiomas.student.user.model.Role;
-import br.com.cabidiomas.student.user.model.RolesEnum;
-import br.com.cabidiomas.student.user.model.Usuario;
+import br.com.cabidiomas.library.user.model.Role;
+import br.com.cabidiomas.library.user.model.RolesEnum;
+import br.com.cabidiomas.library.user.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

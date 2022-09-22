@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student.user.config;
+package br.com.cabidiomas.library.user.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

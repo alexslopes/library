@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student.user.model;
+package br.com.cabidiomas.library.user.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package br.com.cabidiomas.student;
+package br.com.cabidiomas.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,10 +1,10 @@
-package br.com.cabidiomas.student.user.controller;
+package br.com.cabidiomas.library.user.controller;
 
-import br.com.cabidiomas.student.user.controller.dto.UsuarioDto;
-import br.com.cabidiomas.student.user.controller.dto.UsuarioMapper;
-import br.com.cabidiomas.student.user.model.Usuario;
-import br.com.cabidiomas.student.user.service.RoleService;
-import br.com.cabidiomas.student.user.service.UsuarioService;
+import br.com.cabidiomas.library.user.controller.dto.UsuarioDto;
+import br.com.cabidiomas.library.user.controller.dto.UsuarioMapper;
+import br.com.cabidiomas.library.user.model.Usuario;
+import br.com.cabidiomas.library.user.service.RoleService;
+import br.com.cabidiomas.library.user.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

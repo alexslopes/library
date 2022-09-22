@@ -1,9 +1,9 @@
-package br.com.cabidiomas.student.user.service;
+package br.com.cabidiomas.library.user.service;
 
-import br.com.cabidiomas.student.user.model.Role;
-import br.com.cabidiomas.student.user.model.RolesEnum;
-import br.com.cabidiomas.student.user.model.Usuario;
-import br.com.cabidiomas.student.user.repository.UsuarioRepository;
+import br.com.cabidiomas.library.user.model.Role;
+import br.com.cabidiomas.library.user.model.RolesEnum;
+import br.com.cabidiomas.library.user.model.Usuario;
+import br.com.cabidiomas.library.user.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;

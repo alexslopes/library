@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.cabidiomas</groupId>
-	<artifactId>student</artifactId>
+	<artifactId>library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>student</name>
+	<name>library</name>
 	<description>Plataforma com os matérias de estudos do curso</description>
 	<properties>
 		<java.version>11</java.version>

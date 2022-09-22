@@ -1,6 +1,6 @@
-package br.com.cabidiomas.student.user.config;
+package br.com.cabidiomas.library.user.config;
 
-import br.com.cabidiomas.student.user.service.UsuarioService;
+import br.com.cabidiomas.library.user.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,7 +59,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         clients
                 .inMemory()
-                .withClient("student-app")
+                .withClient("library-app")
                 .secret(passwordEncoder.encode("@321"))
                 .scopes("read", "write")
                 .authorizedGrantTypes("password")

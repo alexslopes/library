@@ -1,7 +1,7 @@
-package br.com.cabidiomas.student.user.repository;
+package br.com.cabidiomas.library.user.repository;
 
-import br.com.cabidiomas.student.user.model.Role;
-import br.com.cabidiomas.student.user.model.Usuario;
+import br.com.cabidiomas.library.user.model.Role;
+import br.com.cabidiomas.library.user.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;

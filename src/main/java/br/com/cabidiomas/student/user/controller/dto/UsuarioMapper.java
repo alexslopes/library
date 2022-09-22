@@ -1,8 +1,8 @@
-package br.com.cabidiomas.student.user.controller.dto;
+package br.com.cabidiomas.library.user.controller.dto;
 
-import br.com.cabidiomas.student.user.model.Role;
-import br.com.cabidiomas.student.user.model.RolesEnum;
-import br.com.cabidiomas.student.user.model.Usuario;
+import br.com.cabidiomas.library.user.model.Role;
+import br.com.cabidiomas.library.user.model.RolesEnum;
+import br.com.cabidiomas.library.user.model.Usuario;
 
 import java.util.Arrays;
 import java.util.List;
