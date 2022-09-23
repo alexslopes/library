@@ -2,6 +2,7 @@ package br.com.cabidiomas.library.user.controller;
 
 import br.com.cabidiomas.library.user.controller.dto.UsuarioDto;
 import br.com.cabidiomas.library.user.controller.dto.UsuarioMapper;
+import br.com.cabidiomas.library.user.model.Role;
 import br.com.cabidiomas.library.user.model.Usuario;
 import br.com.cabidiomas.library.user.service.RoleService;
 import br.com.cabidiomas.library.user.service.UsuarioService;
@@ -100,7 +101,7 @@ public class UsuarioController {
             new ResponseStatusException(HttpStatus.NOT_FOUND, "Acesso não autorizado");
         }
 
-        usuarioDto.setRoleId(user.getRoles().get(0).getId());
+        usuarioDto.setRoleIds(user.getRoles().stream().map(Role::getId).toArray(Integer[]::new));
 
         usuarioService.updateUser(user.getId(), UsuarioMapper.dtoToEntity(usuarioDto));
     }

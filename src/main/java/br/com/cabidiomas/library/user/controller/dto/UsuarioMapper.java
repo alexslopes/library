@@ -6,6 +6,7 @@ import br.com.cabidiomas.library.user.model.Usuario;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UsuarioMapper {
 
@@ -14,13 +15,12 @@ public class UsuarioMapper {
             return null;
         }
 
-        assert RolesEnum.getRoleById(dto.getRoleId()) != null;
         return Usuario.builder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .login(dto.getLogin())
                 .password(dto.getPassword())
-                .roles(List.of(Role.getRolebyEnum(RolesEnum.getRoleById(dto.getRoleId())))).build();
+                .roles(Arrays.stream(dto.getRoleIds()).map(Role::getRolebyId).collect(Collectors.toList())).build();
     }
 
     public static UsuarioDto entityToDto(Usuario entity) {
@@ -33,6 +33,6 @@ public class UsuarioMapper {
                 .name(entity.getName())
                 .login(entity.getLogin())
                 .password(entity.getPassword())
-                .roleId(entity.getRoles().get(0).getId()).build();
+                .roleIds(entity.getRoles().stream().map(Role::getId).toArray(Integer[]::new)).build();
     }
 }

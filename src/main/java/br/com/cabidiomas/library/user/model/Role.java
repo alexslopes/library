@@ -27,9 +27,10 @@ public class Role implements GrantedAuthority {
         return  this.name;
     }
 
-    public static Role getRolebyEnum(RolesEnum rolesEnum){
+    public static Role getRolebyId(Integer id){
+        var roleEnum = RolesEnum.getRoleById(id);
         return Role.builder()
-                .id(rolesEnum.getId())
-                .name(rolesEnum.name()).build();
+                .id(roleEnum.getId())
+                .name(roleEnum.name()).build();
     }
 }
