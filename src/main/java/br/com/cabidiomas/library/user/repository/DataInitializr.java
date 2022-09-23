@@ -37,9 +37,8 @@ public class DataInitializr implements ApplicationListener<ContextRefreshedEvent
 
     public void createUser(String name, String email, String password, RolesEnum rolesEnum) {
 
-        Role role = Role.builder().name(rolesEnum.name()).id(rolesEnum.getId()).build();
+        Role role = roleRepository.findByName(rolesEnum.name());
 
-        this.roleRepository.save(role);
         Usuario user = Usuario.builder().name(name).login(email).password(password).roles(List.of(role)).build();
         userRepository.save(user);
     }
