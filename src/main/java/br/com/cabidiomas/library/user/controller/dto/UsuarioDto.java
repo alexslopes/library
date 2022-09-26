@@ -15,5 +15,5 @@ public class UsuarioDto {
     private String name;
     private String login;
     private String password;
-    private Integer[] roleIds;
+    private Integer[] rolesId;
 }

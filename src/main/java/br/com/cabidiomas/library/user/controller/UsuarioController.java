@@ -7,6 +7,7 @@ import br.com.cabidiomas.library.user.model.Usuario;
 import br.com.cabidiomas.library.user.service.RoleService;
 import br.com.cabidiomas.library.user.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,13 +32,13 @@ import java.util.stream.Collectors;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
-    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Secured("ROLE_ADMIN")
     public UsuarioDto save(@RequestBody @Valid UsuarioDto usuario) {
-        var userEntity = UsuarioMapper.dtoToEntity(usuario);
+        var userEntity = UsuarioMapper.dtoToEntity(usuario, passwordEncoder);
         try {
             var user = usuarioService.save(userEntity);
 
@@ -67,12 +69,13 @@ public class UsuarioController {
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateStudent( @PathVariable Long id, @RequestBody @Valid UsuarioDto usuario) {
-        usuarioService.updateUser(id, UsuarioMapper.dtoToEntity(usuario));
+        usuarioService.updateUser(id, UsuarioMapper.dtoToEntity(usuario, passwordEncoder));
     }
 
     @GetMapping("{id}")
-    public Usuario findById( @PathVariable Long id) {
-        return usuarioService.findById(id);
+    public UsuarioDto findById( @PathVariable Long id) {
+        var user =  usuarioService.findById(id);
+        return UsuarioMapper.entityToDto(user);
     }
 
     @DeleteMapping("{id}")
@@ -101,9 +104,7 @@ public class UsuarioController {
             new ResponseStatusException(HttpStatus.NOT_FOUND, "Acesso não autorizado");
         }
 
-        usuarioDto.setRoleIds(user.getRoles().stream().map(Role::getId).toArray(Integer[]::new));
-
-        usuarioService.updateUser(user.getId(), UsuarioMapper.dtoToEntity(usuarioDto));
+        usuarioService.updateUser(user.getId(), UsuarioMapper.dtoToEntity(usuarioDto, passwordEncoder));
     }
 
 }
