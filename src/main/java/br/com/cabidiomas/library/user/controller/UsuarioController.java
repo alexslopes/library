@@ -34,54 +34,11 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @Secured("ROLE_ADMIN")
-    public UsuarioDto save(@RequestBody @Valid UsuarioDto usuario) {
-        var userEntity = UsuarioMapper.dtoToEntity(usuario, passwordEncoder);
-        try {
-            var user = usuarioService.save(userEntity);
-
-            return UsuarioMapper.entityToDto(user);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-    @GetMapping("/obter-alunos")
-    @Secured("ROLE_ADMIN")
-    public Page<UsuarioDto> getStudents(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
-            @RequestParam(value = "sort", defaultValue = "name") String sort
-    ){
-        var userPage =  usuarioService.findAllStudents(page, pageSize, sort);
-
-        List<UsuarioDto> usuarioDtos = userPage.get().map(UsuarioMapper::entityToDto).collect(Collectors.toList());
-
-        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
-
-        return new PageImpl<>(
-                usuarioDtos,
-                pageRequest, userPage.getTotalElements());
-    }
-
-    @PutMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateStudent( @PathVariable Long id, @RequestBody @Valid UsuarioDto usuario) {
-        usuarioService.updateUser(id, UsuarioMapper.dtoToEntity(usuario, passwordEncoder));
-    }
 
     @GetMapping("{id}")
     public UsuarioDto findById( @PathVariable Long id) {
         var user =  usuarioService.findById(id);
         return UsuarioMapper.entityToDto(user);
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Long id){
-        usuarioService.delete(id);
     }
 
     @GetMapping("obter-dados-conta")
