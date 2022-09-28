@@ -23,8 +23,19 @@ public class LanguageService {
         return languageRepository.findByIdentification(identification).orElseThrow(() -> new UsernameNotFoundException("Idioma nao encontrado"));
     }
 
-    public void delete(String identification) {
-        var language = this.findByIdentification(identification);
+    public Language findById(Integer id) {
+        return languageRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Idioma nao encontrado"));
+    }
+
+    public void delete(Integer id) {
+        var language = this.findById(id);
         languageRepository.delete(language);
+    }
+
+    public void updateLanguage(Integer id, Language language) {
+        var la = this.findById(id);
+        la.setDescription(language.getDescription());
+        la.setIdentification(language.getIdentification());
+        this.save(la);
     }
 }
