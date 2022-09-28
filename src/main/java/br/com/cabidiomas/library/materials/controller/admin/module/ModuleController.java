@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/admin/module")
 @Secured("ROLE_ADMIN")
@@ -38,5 +41,11 @@ public class ModuleController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id){
         moduleService.delete(id);
+    }
+
+    @GetMapping("obter-modulo-por-idioma/{id}")
+    public List<ModuleDto> getAllModulesByLanguage(@PathVariable Integer id){
+        var modules = moduleService.findModuleByLanguage(id);
+        return modules.stream().map(ModuleMapper::entityToDto).collect(Collectors.toList());
     }
 }

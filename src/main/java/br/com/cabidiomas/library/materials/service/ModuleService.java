@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ModuleService {
@@ -20,6 +22,10 @@ public class ModuleService {
 
     public Module findModuleById(Integer id){
         return moduleRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado"));
+    }
+
+    public List<Module> findModuleByLanguage(Integer id){
+        return moduleRepository.findByLanguageId(id);
     }
 
     public void delete(Integer id) {
