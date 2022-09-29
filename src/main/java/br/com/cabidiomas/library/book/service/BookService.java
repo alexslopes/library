@@ -3,7 +3,13 @@ package br.com.cabidiomas.library.book.service;
 import br.com.cabidiomas.library.book.model.Book;
 import br.com.cabidiomas.library.book.repository.BookRepository;
 import br.com.cabidiomas.library.language.service.LanguageService;
+import br.com.cabidiomas.library.user.model.Role;
+import br.com.cabidiomas.library.user.model.RolesEnum;
+import br.com.cabidiomas.library.user.model.Usuario;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,10 +31,6 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado"));
     }
 
-    public List<Book> findModuleByLanguage(Integer id){
-        return bookRepository.findByLanguageId(id);
-    }
-
     public void delete(Integer id) {
         var module = this.findModuleById(id);
         bookRepository.delete(module);
@@ -39,5 +41,12 @@ public class BookService {
         moduleToUpdate.setLanguage(book.getLanguage());
         moduleToUpdate.setDescription(book.getDescription());
         this.save(moduleToUpdate);
+    }
+
+    public Page<Book> findAllBooksByLanguage(Integer page, Integer pageSize, String sortColumn, Integer id) {
+        Sort sort =  Sort.by(Sort.Direction.ASC, sortColumn);
+        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
+
+        return bookRepository.findAllByLanguageId(pageRequest, id);
     }
 }

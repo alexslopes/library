@@ -4,7 +4,13 @@ import br.com.cabidiomas.library.book.controller.BookDto;
 import br.com.cabidiomas.library.book.controller.BookMapper;
 import br.com.cabidiomas.library.language.service.LanguageService;
 import br.com.cabidiomas.library.book.service.BookService;
+import br.com.cabidiomas.library.user.controller.dto.UsuarioDto;
+import br.com.cabidiomas.library.user.controller.dto.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +50,21 @@ public class BookController {
         bookService.delete(id);
     }
 
-    @GetMapping("obter-modulo-por-idioma/{id}")
-    public List<BookDto> getAllModulesByLanguage(@PathVariable Integer id){
-        var modules = bookService.findModuleByLanguage(id);
-        return modules.stream().map(BookMapper::entityToDto).collect(Collectors.toList());
+    @GetMapping("/obter-modulo-por-idioma/{id}")
+    public Page<BookDto> getSBooks(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "sort", defaultValue = "description") String sort,
+            @PathVariable Integer id
+    ){
+        var bookPage =  bookService.findAllBooksByLanguage(page, pageSize, sort, id);
+
+        List<BookDto> bookDtos = bookPage.get().map(BookMapper::entityToDto).collect(Collectors.toList());
+
+        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
+
+        return new PageImpl<>(
+                bookDtos,
+                pageRequest, bookPage.getTotalElements());
     }
 }
