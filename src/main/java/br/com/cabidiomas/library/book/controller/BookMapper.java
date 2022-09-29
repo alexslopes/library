@@ -1,28 +1,28 @@
-package br.com.cabidiomas.library.materials.controller.admin.module;
+package br.com.cabidiomas.library.book.controller;
 
-import br.com.cabidiomas.library.materials.model.Language;
-import br.com.cabidiomas.library.materials.model.Module;
+import br.com.cabidiomas.library.book.model.Book;
+import br.com.cabidiomas.library.language.model.Language;
 
-public class ModuleMapper {
+public class BookMapper {
 
-    public static Module dtoToEntity(ModuleDto dto, Language language){
+    public static Book dtoToEntity(BookDto dto, Language language){
         if(dto == null){
             return null;
         }
 
-        return Module.builder()
+        return Book.builder()
                 .id(dto.getId())
                 .description(dto.getDescription())
                 .language(language)
                 .build();
     }
 
-    public static ModuleDto entityToDto(Module entity) {
+    public static BookDto entityToDto(Book entity) {
         if(entity == null) {
             return null;
         }
 
-        return ModuleDto.builder()
+        return BookDto.builder()
                 .id(entity.getId())
                 .description(entity.getDescription())
                 .languageIdentification(entity.getLanguage().getIdentification()).build();

@@ -1,5 +1,6 @@
-package br.com.cabidiomas.library.materials.model;
+package br.com.cabidiomas.library.book.model;
 
+import br.com.cabidiomas.library.language.model.Language;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,15 +13,15 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Language {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "description", nullable = false)
+    @Column(name="description")
     private String description;
 
-    @Column(name = "identification", unique = true)
-    private String identification;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Language language;
 }

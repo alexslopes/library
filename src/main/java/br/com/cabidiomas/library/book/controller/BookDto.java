@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.materials.controller.admin.module;
+package br.com.cabidiomas.library.book.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ModuleDto {
+public class BookDto {
 
     private Integer id;
     private String description;

@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.materials.model;
+package br.com.cabidiomas.library.language.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +12,15 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Module {
+public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Language language;
+    @Column(name = "identification", unique = true)
+    private String identification;
 }
