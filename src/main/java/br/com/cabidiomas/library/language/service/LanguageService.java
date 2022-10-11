@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LanguageService {
@@ -29,5 +31,9 @@ public class LanguageService {
         var la = this.findById(id);
         la.setDescription(language.getDescription());
         this.save(la);
+    }
+
+    public List<Language> getAllLanguage() {
+        return languageRepository.findAll();
     }
 }

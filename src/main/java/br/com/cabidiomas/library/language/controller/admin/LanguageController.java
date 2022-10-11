@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/language")
@@ -34,6 +35,11 @@ public class LanguageController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id){
         languageService.delete(id);
+    }
+
+    @GetMapping("obter-todos-idiomas")
+    public List<Language> getAllLanguages(){
+        return languageService.getAllLanguage();
     }
 
 }
