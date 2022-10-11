@@ -13,5 +13,5 @@ public class BookDto {
 
     private Integer id;
     private String description;
-    private String languageIdentification;
+    private Integer languageId;
 }

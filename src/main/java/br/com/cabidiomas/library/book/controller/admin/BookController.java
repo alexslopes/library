@@ -30,7 +30,7 @@ public class BookController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookDto save(@RequestBody BookDto bookDto){
-        var language = languageService.findByIdentification(bookDto.getLanguageIdentification());
+        var language = languageService.findById(bookDto.getLanguageId());
         var module = BookMapper.dtoToEntity(bookDto, language);
         var dto = bookService.save(module);
         return BookMapper.entityToDto(dto);
@@ -39,7 +39,7 @@ public class BookController {
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateModule( @PathVariable Integer id, @RequestBody BookDto dto){
-        var language = languageService.findByIdentification(dto.getLanguageIdentification());
+        var language = languageService.findById(dto.getLanguageId());
         var module = BookMapper.dtoToEntity(dto, language);
         bookService.updateModule(id, module);
     }

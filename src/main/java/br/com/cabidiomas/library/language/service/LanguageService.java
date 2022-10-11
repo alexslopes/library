@@ -16,10 +16,6 @@ public class LanguageService {
         return languageRepository.save(module);
     }
 
-    public Language findByIdentification(String identification) {
-        return languageRepository.findByIdentification(identification).orElseThrow(() -> new UsernameNotFoundException("Idioma nao encontrado"));
-    }
-
     public Language findById(Integer id) {
         return languageRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Idioma nao encontrado"));
     }
@@ -32,7 +28,6 @@ public class LanguageService {
     public void updateLanguage(Integer id, Language language) {
         var la = this.findById(id);
         la.setDescription(language.getDescription());
-        la.setIdentification(language.getIdentification());
         this.save(la);
     }
 }

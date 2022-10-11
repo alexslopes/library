@@ -20,7 +20,4 @@ public class Language {
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Column(name = "identification", unique = true)
-    private String identification;
 }
