@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/admin/language")
 @Secured("ROLE_ADMIN")
 @RequiredArgsConstructor
-public class LanguageController {
+public class LanguageAdminController {
 
     private final LanguageService languageService;
 
@@ -35,11 +35,6 @@ public class LanguageController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id){
         languageService.delete(id);
-    }
-
-    @GetMapping("obter-todos-idiomas")
-    public List<Language> getAllLanguages(){
-        return languageService.getAllLanguage();
     }
 
 }
