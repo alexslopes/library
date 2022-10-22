@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/admin/book")
 @Secured("ROLE_ADMIN")
 @RequiredArgsConstructor
-public class BookController {
+public class BookAdminController {
 
     private final BookService bookService;
     private final LanguageService languageService;

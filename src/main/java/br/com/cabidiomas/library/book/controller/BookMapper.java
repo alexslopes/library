@@ -24,6 +24,7 @@ public class BookMapper {
 
         return BookDto.builder()
                 .id(entity.getId())
-                .description(entity.getDescription()).build();
+                .description(entity.getDescription())
+                .languageId(entity.getLanguage().getId()).build();
     }
 }
