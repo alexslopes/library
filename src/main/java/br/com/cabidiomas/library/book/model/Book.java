@@ -27,7 +27,6 @@ public class Book {
     @Column(name="description")
     private String description;
 
-//    @Lob
-//    @Column(name="file")
-//    private byte[] file;
+    @Column(name="content")
+    private String content;
 }

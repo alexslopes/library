@@ -16,5 +16,5 @@ public class BookDto {
     private Long id;
     private Integer idLevel;
     private String description;
-    private Part file;
+    private String content;
 }

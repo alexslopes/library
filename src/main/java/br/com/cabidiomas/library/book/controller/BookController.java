@@ -25,13 +25,12 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void save(@RequestParam("idLevel") Integer idLevel,
-                     @RequestParam("id") Long id,
-                     @RequestParam("description") String description) {
-        Level level = levelService.findLevelById(idLevel);
-        var book = Book.builder().id(id).
-                description(description).
-                level(level).build();
+    public void save(@RequestBody BookDto bookDto) {
+        Level level = levelService.findLevelById(bookDto.getIdLevel());
+        var book = Book.builder().id(bookDto.getId()).
+                description(bookDto.getDescription()).
+                level(level).
+                content(bookDto.getContent()).build();
         bookService.save(book);
     }
 
