@@ -1,7 +1,8 @@
 package br.com.cabidiomas.library.material.controller;
 
-import br.com.cabidiomas.library.book.model.Book;
-import br.com.cabidiomas.library.book.service.BookService;
+import br.com.cabidiomas.library.level.model.Level;
+import br.com.cabidiomas.library.level.service.LevelService;
+import br.com.cabidiomas.library.level.service.LevelService;
 import br.com.cabidiomas.library.material.model.Material;
 import br.com.cabidiomas.library.material.service.MaterialService;
 import br.com.cabidiomas.library.utils.FileUtils;
@@ -21,25 +22,25 @@ import java.util.List;
 public class MaterialController {
 
     private final MaterialService materialService;
-    private final BookService bookService;
+    private final LevelService levelService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void save(@RequestParam("idBook") Integer idBook,
+    public void save(@RequestParam("idLevel") Integer idLevel,
                      @RequestParam("id") Long id,
                      @RequestParam("description") String description,
                      @RequestParam("file") Part file) throws IOException {
-        Book book = bookService.findBookById(idBook);
+        Level level = levelService.findLevelById(idLevel);
         var material = Material.builder().id(id).
                 description(description).
-                book(book).
+                level(level).
                 file(FileUtils.partToBytes(file)).build();
         materialService.save(material);
     }
 
     @GetMapping("{id}")
     public List<Material> list(@PathVariable Integer id){
-        return materialService.findAllByBookId(id);
+        return materialService.findAllByLevelId(id);
     }
 
     @DeleteMapping

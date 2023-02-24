@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.book.controller;
+package br.com.cabidiomas.library.level.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookDto {
+public class LevelDto {
 
     private Integer id;
     private String description;

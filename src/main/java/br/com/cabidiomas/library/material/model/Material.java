@@ -1,6 +1,6 @@
 package br.com.cabidiomas.library.material.model;
 
-import br.com.cabidiomas.library.book.model.Book;
+import br.com.cabidiomas.library.level.model.Level;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +22,7 @@ public class Material {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private Book book;
+    private Level level;
 
     @Column(name="description")
     private String description;

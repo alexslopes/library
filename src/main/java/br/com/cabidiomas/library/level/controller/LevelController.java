@@ -1,6 +1,6 @@
-package br.com.cabidiomas.library.book.controller;
+package br.com.cabidiomas.library.level.controller;
 
-import br.com.cabidiomas.library.book.service.BookService;
+import br.com.cabidiomas.library.level.service.LevelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/book")
+@RequestMapping("/api/level")
 @RequiredArgsConstructor
-public class BookController {
+public class LevelController {
 
-    private final BookService bookService;
+    private final LevelService levelService;
 
     @GetMapping("{id}")
-    public BookDto findBookById(@PathVariable Integer id){
-        return BookMapper.entityToDto(bookService.findBookById(id));
+    public LevelDto findLevelById(@PathVariable Integer id){
+        return LevelMapper.entityToDto(levelService.findLevelById(id));
     }
 }

@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.book.model;
+package br.com.cabidiomas.library.level.model;
 
 import br.com.cabidiomas.library.language.model.Language;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MaterialRepository  extends JpaRepository<Material, Long> {
 
-    List<Material> findAllByBookId(int id);
+    List<Material> findAllByLevelId(int id);
 }

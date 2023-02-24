@@ -24,7 +24,7 @@ public class MaterialService {
         materialRepository.deleteById(id);
     }
 
-    public List<Material> findAllByBookId(Integer id) {
-        return materialRepository.findAllByBookId(id);
+    public List<Material> findAllByLevelId(Integer id) {
+        return materialRepository.findAllByLevelId(id);
     }
 }

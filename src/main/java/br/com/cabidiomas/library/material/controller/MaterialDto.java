@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 public class MaterialDto {
 
     private Long id;
-    private Integer idBook;
+    private Integer idLevel;
     private String description;
     private Part file;
 }
