@@ -1,10 +1,9 @@
-package br.com.cabidiomas.library.material.controller;
+package br.com.cabidiomas.library.book.controller;
 
 import br.com.cabidiomas.library.level.model.Level;
 import br.com.cabidiomas.library.level.service.LevelService;
-import br.com.cabidiomas.library.level.service.LevelService;
-import br.com.cabidiomas.library.material.model.Material;
-import br.com.cabidiomas.library.material.service.MaterialService;
+import br.com.cabidiomas.library.book.model.Book;
+import br.com.cabidiomas.library.book.service.BookService;
 import br.com.cabidiomas.library.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,37 +15,35 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/material")
+@RequestMapping("/api/admin/book")
 @Secured("ROLE_ADMIN")
 @RequiredArgsConstructor
-public class MaterialController {
+public class BookController {
 
-    private final MaterialService materialService;
+    private final BookService bookService;
     private final LevelService levelService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void save(@RequestParam("idLevel") Integer idLevel,
                      @RequestParam("id") Long id,
-                     @RequestParam("description") String description,
-                     @RequestParam("file") Part file) throws IOException {
+                     @RequestParam("description") String description) {
         Level level = levelService.findLevelById(idLevel);
-        var material = Material.builder().id(id).
+        var book = Book.builder().id(id).
                 description(description).
-                level(level).
-                file(FileUtils.partToBytes(file)).build();
-        materialService.save(material);
+                level(level).build();
+        bookService.save(book);
     }
 
     @GetMapping("{id}")
-    public List<Material> list(@PathVariable Integer id){
-        return materialService.findAllByLevelId(id);
+    public List<Book> list(@PathVariable Integer id){
+        return bookService.findAllByLevelId(id);
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id){
-        materialService.delete(id);
+        bookService.delete(id);
     }
 
 }

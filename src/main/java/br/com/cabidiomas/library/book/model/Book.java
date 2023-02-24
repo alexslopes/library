@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.material.model;
+package br.com.cabidiomas.library.book.model;
 
 import br.com.cabidiomas.library.level.model.Level;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Material {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Material {
     @Column(name="description")
     private String description;
 
-    @Lob
-    @Column(name="file")
-    private byte[] file;
+//    @Lob
+//    @Column(name="file")
+//    private byte[] file;
 }
