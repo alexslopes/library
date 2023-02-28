@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/book")
-@Secured("ROLE_ADMIN")
 @RequiredArgsConstructor
 public class BookController {
 
@@ -24,9 +23,10 @@ public class BookController {
     private final LevelService levelService;
 
     @PostMapping
+    @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void save(@RequestBody BookDto bookDto) {
-        Level level = levelService.findLevelById(bookDto.getIdLevel());
+        Level level = levelService.findLevelById(bookDto.getLevel().getId());
         var book = Book.builder().id(bookDto.getId()).
                 description(bookDto.getDescription()).
                 level(level).
@@ -35,7 +35,7 @@ public class BookController {
     }
 
     @GetMapping("{id}")
-    public List<Book> list(@PathVariable Integer id){
+    public List<Book> list(@PathVariable Long id){
         return bookService.findAllByLevelId(id);
     }
 

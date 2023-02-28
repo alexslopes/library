@@ -21,7 +21,11 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public List<Book> findAllByLevelId(Integer id) {
+    public List<Book> findAllByLevelId(Long id) {
         return bookRepository.findAllByLevelId(id);
+    }
+
+    public Book findById(Long id){
+        return bookRepository.findById(id).get();
     }
 }
