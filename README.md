@@ -1,4 +1,4 @@
-# Library-backend
+L# Library-backend
 ---Projeto em desenvolvimento---
 
 Api Rest com com regra de negócio para aplicação library-app (https://github.com/alexslopes/library-app). 
@@ -12,9 +12,10 @@ JDK 11
 MAVEN 3.5
 
 ##Execução
-Para executar o projeto, utilize uma IDE (Eclipse ou Intellij) ou eecute o comando mvn spring-boot:run
 
-Para utilizar, execute library-app junto. E na tela de login digite
+Para executar o projeto, utilize uma IDE (Eclipse ou Intellij) ou execute o comando mvn spring-boot:run no terminal.
+
+Para utilizar, execute library-app junto. E na tela de login digite:
 
 Login:
 admin
