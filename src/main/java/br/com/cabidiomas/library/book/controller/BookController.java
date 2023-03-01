@@ -9,13 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/book")
+@RequestMapping("/api/book")
 @RequiredArgsConstructor
 public class BookController {
 
@@ -34,8 +35,8 @@ public class BookController {
         bookService.save(book);
     }
 
-    @GetMapping("{id}")
-    public List<Book> list(@PathVariable Long id){
+    @GetMapping("/list-by-level/{id}")
+    public List<Book> listByLevel(@PathVariable Integer id){
         return bookService.findAllByLevelId(id);
     }
 
@@ -43,6 +44,16 @@ public class BookController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id){
         bookService.delete(id);
+    }
+
+    @GetMapping("/get-content/{id}")
+    public BookDto getContent(@PathVariable Long id){
+        var book =  bookService.findById(id);
+
+        if(book != null)
+            return BookDto.builder().content(book.getContent()).build();
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado");
     }
 
 }
