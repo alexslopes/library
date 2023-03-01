@@ -1,5 +1,6 @@
 # Library-backend
 ---Projeto em desenvolvimento---
+
 Api Rest com com regra de negócio para aplicação library-app (https://github.com/alexslopes/library-app). 
 
 #Projeto Library
@@ -7,6 +8,7 @@ Tem como finalidade fornecer uma plataforma voltado para cursos/instituições d
 
 ## Pré-requisitos
 JDK 11
+
 MAVEN 3.5
 
 ##Execução
