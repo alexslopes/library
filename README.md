@@ -14,6 +14,14 @@ MAVEN 3.5
 ##Execução
 Para executar o projeto, utilize uma IDE (Eclipse ou Intellij) ou eecute o comando mvn spring-boot:run
 
+Para utilizar, execute library-app junto. E na tela de login digite
+
+Login:
+admin
+
+Senha:
+123456
+
 #Ferramentas utilizadas
 * [Spring boot] (https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using) - O framework web usado
 * [Maven] (https://maven.apache.org/) - Gerente de Dependência
