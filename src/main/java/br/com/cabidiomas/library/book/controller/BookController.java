@@ -23,27 +23,9 @@ public class BookController {
     private final BookService bookService;
     private final LevelService levelService;
 
-    @PostMapping
-    @Secured("ROLE_ADMIN")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void save(@RequestBody BookDto bookDto) {
-        Level level = levelService.findLevelById(bookDto.getLevel().getId());
-        var book = Book.builder().id(bookDto.getId()).
-                description(bookDto.getDescription()).
-                level(level).
-                content(bookDto.getContent()).build();
-        bookService.save(book);
-    }
-
     @GetMapping("/list-by-level/{id}")
     public List<Book> listByLevel(@PathVariable Integer id){
         return bookService.findAllByLevelId(id);
-    }
-
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id){
-        bookService.delete(id);
     }
 
     @GetMapping("/get-content/{id}")

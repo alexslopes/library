@@ -16,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class LevelService {
 
     private final LevelRepository levelRepository;
-    private final LanguageService languageService;
 
     public Level save(Level level) {
         return levelRepository.save(level);

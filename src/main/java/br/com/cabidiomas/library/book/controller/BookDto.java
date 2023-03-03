@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 public class BookDto {
 
     private Long id;
-    private LevelDto level;
+    private Integer idLevel;
     private String description;
     private String content;
 }

@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.language.controller.admin;
+package br.com.cabidiomas.library.language.controller;
 
 import br.com.cabidiomas.library.language.model.Language;
 import br.com.cabidiomas.library.language.service.LanguageService;
@@ -21,8 +21,9 @@ public class LanguageAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Language save(@RequestBody @Valid Language language){
-        return languageService.save(language);
+    public void save(@RequestBody @Valid LanguageDto languageDto){
+        var language = Language.builder().description(languageDto.getDescription()).build();
+        languageService.save(language);
     }
 
     @PutMapping("{id}")

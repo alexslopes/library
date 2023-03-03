@@ -19,9 +19,8 @@ public class LevelController {
     private final BookService bookService;
 
     @GetMapping("{id}")
-    public BookDto findLevelById(@PathVariable Integer id){
-        //LevelMapper.entityToDto(levelService.findLevelById(id));
-         var book = bookService.findById(Long.valueOf(String.valueOf(id)));
-         return BookDto.builder().id(book.getId()).description(book.getDescription()).level(LevelMapper.entityToDto(book.getLevel())).content(book.getContent()).build();
+    public LevelDto findLevelById(@PathVariable Integer id){
+         var level = levelService.findLevelById(id);
+         return LevelMapper.entityToDto(level);
     }
 }

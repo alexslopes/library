@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.level.controller.admin;
+package br.com.cabidiomas.library.level.controller;
 
 import br.com.cabidiomas.library.book.controller.BookDto;
 import br.com.cabidiomas.library.book.model.Book;
@@ -32,34 +32,18 @@ public class LevelAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDto save(@RequestBody BookDto bookDto){
-        var language = languageService.findById(bookDto.getLevel().getLanguageId());
-        var level = LevelMapper.dtoToEntity(bookDto.getLevel(), language);
+    public void save(@RequestBody LevelDto levelDto){
+        var language = languageService.findById(levelDto.getLanguageId());
+        var level = LevelMapper.dtoToEntity(levelDto, language);
         var dto = levelService.save(level);
-
-        var book = Book.builder().id(bookDto.getId()).
-            description(bookDto.getDescription()).
-            level(level).
-            content(bookDto.getContent()).build();
-
-        this.bookService.save(book);
-
-        return BookDto.builder().id(book.getId()).level(LevelMapper.entityToDto(level)).build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateModule( @PathVariable Integer id, @RequestBody BookDto bookDto){
-        var language = languageService.findById(bookDto.getLevel().getLanguageId());
-        var module = LevelMapper.dtoToEntity(bookDto.getLevel(), language);
-        levelService.updateModule(id, module);
-
-        var book = Book.builder().id(bookDto.getId()).
-                description(bookDto.getDescription()).
-                level(module).
-                content(bookDto.getContent()).build();
-
-        this.bookService.save(book);
+    public void updateLevel( @RequestBody LevelDto levelDto){
+        var language = languageService.findById(levelDto.getLanguageId());
+        var level = LevelMapper.dtoToEntity(levelDto, language);
+        var dto = levelService.save(level);
     }
 
     @DeleteMapping("{id}")
