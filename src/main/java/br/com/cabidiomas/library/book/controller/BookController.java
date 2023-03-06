@@ -28,14 +28,14 @@ public class BookController {
         return bookService.findAllByLevelId(id);
     }
 
-    @GetMapping("/get-content/{id}")
-    public BookDto getContent(@PathVariable Long id){
-        var book =  bookService.findById(id);
-
-        if(book != null)
-            return BookDto.builder().content(book.getContent()).build();
-
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado");
-    }
+//    @GetMapping("/get-content/{id}")
+//    public BookDto getContent(@PathVariable Long id){
+//        var book =  bookService.findById(id);
+//
+//        if(book != null)
+//            return BookDto.builder().content(book.getPages()).build();
+//
+//        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado");
+//    }
 
 }

@@ -1,7 +1,6 @@
-package br.com.cabidiomas.library.book.model;
+package br.com.cabidiomas.library.book.page.model;
 
-import br.com.cabidiomas.library.book.page.model.PageBook;
-import br.com.cabidiomas.library.level.model.Level;
+import br.com.cabidiomas.library.book.model.Book;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,27 +8,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
-
+public class PageBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private Level level;
+    private Book book;
 
-    @Column(name="description")
-    private String description;
+    @Column(name="chapter")
+    private Integer chapter;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<PageBook> pageBooks;
+    @Column(name="page_index")
+    private Long pageIndex;
+
+    @Column(name="content")
+    private String content;
 }

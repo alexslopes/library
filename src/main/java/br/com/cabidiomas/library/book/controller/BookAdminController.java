@@ -28,8 +28,7 @@ public class BookAdminController {
         Level level = levelService.findLevelById(bookDto.getIdLevel());
         var book = Book.builder().
                 description(bookDto.getDescription()).
-                level(level).
-                content(bookDto.getContent()).build();
+                level(level).build();
         bookService.save(book);
     }
 
