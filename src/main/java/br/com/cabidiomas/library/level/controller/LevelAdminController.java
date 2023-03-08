@@ -32,10 +32,10 @@ public class LevelAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody LevelDto levelDto){
+    public LevelDto save(@RequestBody LevelDto levelDto){
         var language = languageService.findById(levelDto.getLanguageId());
         var level = LevelMapper.dtoToEntity(levelDto, language);
-        var dto = levelService.save(level);
+        return LevelMapper.entityToDto(levelService.save(level));
     }
 
     @PutMapping
@@ -53,7 +53,7 @@ public class LevelAdminController {
     }
 
     @GetMapping("/obter-modulo-por-idioma/{id}")
-    public Page<LevelDto> getSLevels(
+    public Page<LevelDto> getLevels(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", defaultValue = "description") String sort,

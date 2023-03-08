@@ -3,6 +3,9 @@ package br.com.cabidiomas.library.book.page.service;
 import br.com.cabidiomas.library.book.page.model.PageBook;
 import br.com.cabidiomas.library.book.page.model.PageRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,5 +35,12 @@ public class PageBookService {
 
     public void delete(Long id) {
         this.pageRepository.deleteById(id);
+    }
+
+    public Page<PageBook> findAllPagesByChapter(Long idBook, Integer chapter, Integer page, Integer pageSize, String sortColumn) {
+        Sort sort =  Sort.by(Sort.Direction.ASC, sortColumn);
+        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
+
+        return pageRepository.findAllByBookIdAndChapter(pageRequest, idBook, chapter);
     }
 }
