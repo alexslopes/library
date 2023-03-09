@@ -2,6 +2,9 @@ package br.com.cabidiomas.library.book.page.controller;
 
 import br.com.cabidiomas.library.book.model.Book;
 import br.com.cabidiomas.library.book.page.model.PageBook;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class PageBookMapper {
 
@@ -30,6 +33,13 @@ public class PageBookMapper {
                 .chapter(entity.getChapter())
                 .pageIndex(entity.getPageIndex())
                 .content(entity.getContent()).build();
+    }
+
+    public static ChapterPageBookDto entityToDto(Page<PageBookDto> page, List<Integer> chapters) {
+
+        return ChapterPageBookDto.builder()
+                .chapters(chapters)
+                .pages(page).build();
     }
 
 }

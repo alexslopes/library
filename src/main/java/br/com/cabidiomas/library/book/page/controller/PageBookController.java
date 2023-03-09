@@ -32,8 +32,8 @@ public class PageBookController {
 
     }
 
-    @GetMapping("/obter-páginas-por-capítulo/{idBook}/{chapter}")
-    public Page<PageBookDto> getPageBook(
+    @GetMapping("/obter-paginas/{idBook}/{chapter}")
+    public Page<PageBookDto> list(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "1") Integer pageSize,
             @RequestParam(value = "sort", defaultValue = "pageIndex") String sort,
@@ -49,6 +49,30 @@ public class PageBookController {
         return new PageImpl<>(
                 pageBookDtos,
                 pageRequest, pageBook.getTotalElements());
+    }
+
+    @GetMapping("/obter-paginas-por-capitulo/{idBook}/{chapter}")
+    public ChapterPageBookDto getPageBook(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "1") Integer pageSize,
+            @RequestParam(value = "sort", defaultValue = "pageIndex") String sort,
+            @PathVariable Long idBook,
+            @PathVariable Integer chapter
+    ){
+
+//        var page = pageBookService.findPageBookByChapter(chapter);
+        var pageBookList =  pageBookService.getAllChapterFromBook(idBook);
+
+        var pageBook =  pageBookService.findAllPagesByChapter(idBook, chapter, page, pageSize, sort);
+        List<PageBookDto> pageBookDtos = pageBook.get().map(PageBookMapper::entityToDto).collect(Collectors.toList());
+
+        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
+
+        var pagesBookList = new PageImpl<>(
+                pageBookDtos,
+                pageRequest, pageBook.getTotalElements());
+
+        return PageBookMapper.entityToDto(pagesBookList, pageBookList);
     }
 
 }
