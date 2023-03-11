@@ -31,5 +31,6 @@ public class Book {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
     private List<PageBook> pageBooks;
 }

@@ -33,7 +33,7 @@ public class PageBookController {
     }
 
     @GetMapping("/obter-paginas/{idBook}/{chapter}")
-    public Page<PageBookDto> list(
+    public Page<PageBookDto> getPagesByChapter(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "1") Integer pageSize,
             @RequestParam(value = "sort", defaultValue = "pageIndex") String sort,

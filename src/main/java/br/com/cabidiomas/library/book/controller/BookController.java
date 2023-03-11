@@ -1,5 +1,6 @@
 package br.com.cabidiomas.library.book.controller;
 
+import br.com.cabidiomas.library.book.page.service.PageBookService;
 import br.com.cabidiomas.library.level.model.Level;
 import br.com.cabidiomas.library.level.service.LevelService;
 import br.com.cabidiomas.library.book.model.Book;
@@ -13,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,21 +23,21 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final LevelService levelService;
+    private final PageBookService pageBookService;
 
     @GetMapping("/list-by-level/{id}")
-    public List<Book> listByLevel(@PathVariable Integer id){
-        return bookService.findAllByLevelId(id);
+    public List<BookDetailDto> listByLevelWithDetail(@PathVariable Integer id){
+        var books = bookService.findAllByLevelId(id);
+
+        List<BookDetailDto> bookDetailDto = new ArrayList<>();
+
+        for(Book b : books){
+            var dto = BookMapper.entityToDto(b, pageBookService.getAllChapterFromBook(b.getId()));
+            bookDetailDto.add(dto);
+        }
+
+        return bookDetailDto;
     }
 
-//    @GetMapping("/get-content/{id}")
-//    public BookDto getContent(@PathVariable Long id){
-//        var book =  bookService.findById(id);
-//
-//        if(book != null)
-//            return BookDto.builder().content(book.getPages()).build();
-//
-//        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livro não encontrado");
-//    }
 
 }
