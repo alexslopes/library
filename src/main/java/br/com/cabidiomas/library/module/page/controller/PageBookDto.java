@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PageBookDto {
 
     private Long id;
-    private Long bookId;
+    private Integer levelId;
     private Integer chapter;
     private Long pageIndex;
     private String content;

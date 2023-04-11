@@ -1,5 +1,8 @@
 package br.com.cabidiomas.library.module.page.service;
 
+import br.com.cabidiomas.library.module.level.service.LevelService;
+import br.com.cabidiomas.library.module.page.controller.PageBookDto;
+import br.com.cabidiomas.library.module.page.controller.PageBookMapper;
 import br.com.cabidiomas.library.module.page.model.PageBook;
 import br.com.cabidiomas.library.module.page.model.PageRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,19 +20,24 @@ import java.util.List;
 public class PageBookService {
 
     private final PageRepository pageRepository;
+    private final LevelService levelService;
 
-    public void save(PageBook page) {
-        this.pageRepository.save(page);
+    public PageBook save(PageBookDto pageBookDto) {
+        var level = levelService.findLevelById(pageBookDto.getLevelId());
+        var page = PageBookMapper.dtoToEntity(pageBookDto);
+        page.setLevel(level);
+        return this.pageRepository.save(page);
     }
 
     public PageBook findPageBookById(Long id) {
         return this.pageRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Página não encontrada"));
     }
 
-    public void update(PageBook pageBook) {
+    public void update(PageBookDto pageBookDto) {
+        var pageBook = PageBookMapper.dtoToEntity(pageBookDto);
         boolean isExiste = pageRepository.existsById(pageBook.getId());
         if(isExiste){
-            this.save(pageBook);
+            this.pageRepository.save(pageBook);
         }
     }
 

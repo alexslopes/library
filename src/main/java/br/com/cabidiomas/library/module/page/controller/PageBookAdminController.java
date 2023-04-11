@@ -1,6 +1,8 @@
 package br.com.cabidiomas.library.module.page.controller;
 
 
+import br.com.cabidiomas.library.module.level.service.LevelService;
+import br.com.cabidiomas.library.module.page.model.PageBook;
 import br.com.cabidiomas.library.module.page.service.PageBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +19,14 @@ public class PageBookAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody PageBookDto pageDto) {
+    public PageBook save(@RequestBody PageBookDto pageBookDto) {
+        return pageBookService.save(pageBookDto);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody PageBookDto pageDto) {
+        this.pageBookService.update(pageDto);
     }
 
     @DeleteMapping("{id}")
