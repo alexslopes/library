@@ -1,5 +1,6 @@
 package br.com.cabidiomas.library.module.page.controller;
 
+import br.com.cabidiomas.library.module.level.model.Level;
 import br.com.cabidiomas.library.module.page.model.PageBook;
 import org.springframework.data.domain.Page;
 
@@ -20,6 +21,20 @@ public class PageBookMapper {
                 .build();
     }
 
+    public static PageBook dtoToEntity(PageBookDto dto, Level level){
+        if(dto == null){
+            return null;
+        }
+
+        return PageBook.builder()
+                .id(dto.getId())
+                .chapter(dto.getChapter())
+                .level(level)
+                .pageIndex(dto.getPageIndex())
+                .content(dto.getContent())
+                .build();
+    }
+
     public static PageBookDto entityToDto(PageBook entity) {
         if(entity == null) {
             return null;
@@ -27,6 +42,7 @@ public class PageBookMapper {
 
         return PageBookDto.builder()
                 .id(entity.getId())
+                .levelId(entity.getLevel().getId())
                 .chapter(entity.getChapter())
                 .pageIndex(entity.getPageIndex())
                 .content(entity.getContent()).build();

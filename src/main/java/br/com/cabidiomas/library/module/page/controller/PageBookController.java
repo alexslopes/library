@@ -20,7 +20,7 @@ public class PageBookController {
 
     @GetMapping("{id}")
     public PageBookDto findPageBookById(@PathVariable Long id) {
-        return null;
+        return this.pageBookService.findPageBookById(id);
     }
 
     @GetMapping("/obter-paginas/{idBook}/{chapter}")

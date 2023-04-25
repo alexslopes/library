@@ -29,12 +29,14 @@ public class PageBookService {
         return this.pageRepository.save(page);
     }
 
-    public PageBook findPageBookById(Long id) {
-        return this.pageRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Página não encontrada"));
+    public PageBookDto findPageBookById(Long id) {
+        var pageBook = this.pageRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Página não encontrada"));
+        return PageBookMapper.entityToDto(pageBook);
     }
 
     public void update(PageBookDto pageBookDto) {
-        var pageBook = PageBookMapper.dtoToEntity(pageBookDto);
+        var level = levelService.findLevelById(pageBookDto.getLevelId());
+        var pageBook = PageBookMapper.dtoToEntity(pageBookDto, level);
         boolean isExiste = pageRepository.existsById(pageBook.getId());
         if(isExiste){
             this.pageRepository.save(pageBook);
