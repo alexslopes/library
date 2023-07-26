@@ -23,6 +23,13 @@ public class PageBookController {
         return this.pageBookService.findPageBookById(id);
     }
 
+    @GetMapping("/obter-livro-por-level/{idLevel}")
+    public PageBookDto getPagesByChapter(
+            @PathVariable Integer idLevel
+    ){
+        return pageBookService.findPageBookByLevel(idLevel);
+    }
+
     @GetMapping("/obter-paginas/{idBook}/{chapter}")
     public Page<PageBookDto> getPagesByChapter(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
