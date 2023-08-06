@@ -3,10 +3,14 @@ package br.com.cabidiomas.library.module.level.controller;
 
 import br.com.cabidiomas.library.module.level.service.LevelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/level")
@@ -20,4 +24,23 @@ public class LevelController {
          var level = levelService.findLevelById(id);
          return LevelMapper.entityToDto(level);
     }
+
+    @GetMapping("/list-all-level-by-language/{id}")
+    public Page<LevelDto> getLevels(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "sort", defaultValue = "description") String sort,
+            @PathVariable Integer id
+    ){
+        var levelPage =  levelService.findAllLevelsByLanguage(page, pageSize, sort, id);
+
+        List<LevelDto> levelDtos = levelPage.get().map(LevelMapper::entityToDto).collect(Collectors.toList());
+
+        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
+
+        return new PageImpl<>(
+                levelDtos,
+                pageRequest, levelPage.getTotalElements());
+    }
+
 }
