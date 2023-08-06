@@ -1,7 +1,7 @@
 package br.com.cabidiomas.library.module.level.model;
 
 import br.com.cabidiomas.library.module.language.model.Language;
-import br.com.cabidiomas.library.module.page.model.PageBook;
+import br.com.cabidiomas.library.module.book.model.Book;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +29,5 @@ public class Level {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "level_id")
-    private List<PageBook> pageBookList;
+    private List<Book> bookList;
 }

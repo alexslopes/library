@@ -1,4 +1,4 @@
-package br.com.cabidiomas.library.module.page.model;
+package br.com.cabidiomas.library.module.book.model;
 
 import br.com.cabidiomas.library.module.level.model.Level;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,8 +14,8 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "pagebook")
-public class PageBook {
+@Table(name = "book")
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,13 +24,6 @@ public class PageBook {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "level_id")
     private Level level;
-
-
-    @Column(name="chapter")
-    private Integer chapter;
-
-    @Column(name="page_index")
-    private Long pageIndex;
 
     @Column(name="content")
     private String content;

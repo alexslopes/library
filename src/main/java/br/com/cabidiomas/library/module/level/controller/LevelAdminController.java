@@ -44,22 +44,4 @@ public class LevelAdminController {
     public void delete(@PathVariable Integer id){
         levelService.delete(id);
     }
-
-    @GetMapping("/obter-modulo-por-idioma/{id}")
-    public Page<LevelDto> getLevels(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
-            @RequestParam(value = "sort", defaultValue = "description") String sort,
-            @PathVariable Integer id
-    ){
-        var levelPage =  levelService.findAllLevelsByLanguage(page, pageSize, sort, id);
-
-        List<LevelDto> levelDtos = levelPage.get().map(LevelMapper::entityToDto).collect(Collectors.toList());
-
-        PageRequest pageRequest = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.ASC,sort));
-
-        return new PageImpl<>(
-                levelDtos,
-                pageRequest, levelPage.getTotalElements());
-    }
 }
