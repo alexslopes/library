@@ -22,7 +22,7 @@ public class Book {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "level_id")
+    @JoinColumn(name = "level_id", unique=true)
     private Level level;
 
     @Column(name="content")

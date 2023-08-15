@@ -4,8 +4,6 @@ import br.com.cabidiomas.library.module.book.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/book")
 @RequiredArgsConstructor
@@ -18,8 +16,8 @@ public class BookController {
         return this.bookService.findBookById(id);
     }
 
-    @GetMapping("/list-by-level/{idLevel}")
-    public List<BookDto> getByChapter(
+    @GetMapping("/find-by-level/{idLevel}")
+    public BookDto getByChapter(
             @PathVariable Integer idLevel
     ){
         return bookService.findBookByLevel(idLevel);

@@ -3,15 +3,11 @@ package br.com.cabidiomas.library.module.book.service;
 import br.com.cabidiomas.library.module.level.service.LevelService;
 import br.com.cabidiomas.library.module.book.controller.BookDto;
 import br.com.cabidiomas.library.module.book.controller.BookMapper;
-import br.com.cabidiomas.library.module.book.model.Book;
 import br.com.cabidiomas.library.module.book.model.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +16,14 @@ public class BookService {
     private final BookRepository bookRepository;
     private final LevelService levelService;
 
-    public Book save(BookDto bookDto) {
+    public BookDto save(BookDto bookDto) {
         var level = levelService.findLevelById(bookDto.getLevelId());
         var page = BookMapper.dtoToEntity(bookDto);
         page.setLevel(level);
-        return this.bookRepository.save(page);
+        var bookToReturn = this.bookRepository.save(page);
+        return BookDto.builder().id(bookToReturn.getId()).
+                levelId(bookToReturn.getLevel().getId()).
+                content(bookToReturn.getContent()).build();
     }
 
     public BookDto findBookById(Long id) {
@@ -32,12 +31,10 @@ public class BookService {
         return BookMapper.entityToDto(pageBook);
     }
 
-    public List<BookDto> findBookByLevel(Integer idLevel) {
-        var pageBook = bookRepository.findBookByLevelId(idLevel);
-        List<BookDto> listBook = new ArrayList<>();
-        pageBook.forEach(book -> listBook.add(BookMapper.entityToDto(book)));
-        return listBook;
-    }
+    public BookDto findBookByLevel(Integer idLevel) {
+        var book = bookRepository.findBookByLevelId(idLevel);
+        return BookMapper.entityToDto(book);
+     }
 
     public void update(BookDto bookDto) {
         var level = levelService.findLevelById(bookDto.getLevelId());
