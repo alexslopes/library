@@ -4,7 +4,7 @@ create table role (
         primary key (id)
 );
 
-create table user_role (
+create table usuario_role (
        usuario_id bigint not null,
         role_id integer not null,
         foreign key (role_id) references role(id),

@@ -26,7 +26,7 @@ public class Usuario {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="user_role",
+    @JoinTable(name="usuario_role",
             joinColumns=@JoinColumn(name="usuario_id"),
             inverseJoinColumns=@JoinColumn(name="role_id")
     )
