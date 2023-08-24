@@ -44,4 +44,14 @@ public class LevelAdminController {
     public void delete(@PathVariable Integer id){
         levelService.delete(id);
     }
+
+    @PostMapping("salvar-modulo-para-usuario/{idLevel}/{idUsuario}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveLevelForStudent(
+            @PathVariable Integer idLevel,
+            @PathVariable Long idUsuario
+    ) {
+       levelService.addLevelToStudent(idLevel, idUsuario);
+    }
+
 }

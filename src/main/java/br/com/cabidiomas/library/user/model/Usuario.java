@@ -1,5 +1,7 @@
 package br.com.cabidiomas.library.user.model;
 
+import br.com.cabidiomas.library.module.level.model.StudentLevel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +33,11 @@ public class Usuario {
             inverseJoinColumns=@JoinColumn(name="role_id")
     )
     private List<Role> roles;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private List<StudentLevel> studentLevels;
 
     public Usuario(Usuario user) {
         super();

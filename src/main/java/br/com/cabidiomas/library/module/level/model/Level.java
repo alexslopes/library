@@ -2,6 +2,7 @@ package br.com.cabidiomas.library.module.level.model;
 
 import br.com.cabidiomas.library.module.language.model.Language;
 import br.com.cabidiomas.library.module.book.model.Book;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,4 +31,9 @@ public class Level {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "level_id")
     private List<Book> bookList;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "level_id")
+    private List<StudentLevel> studentLevels;
 }

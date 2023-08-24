@@ -1,7 +1,10 @@
 package br.com.cabidiomas.library.module.level.service;
 
 import br.com.cabidiomas.library.module.level.model.Level;
+import br.com.cabidiomas.library.module.level.model.StudentLevel;
 import br.com.cabidiomas.library.module.level.repository.LevelRepository;
+import br.com.cabidiomas.library.module.level.repository.StudentLevelRepository;
+import br.com.cabidiomas.library.user.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class LevelService {
 
     private final LevelRepository levelRepository;
+    private final UsuarioService usuarioService;
+    private final StudentLevelRepository studentLevelRepository;
 
     public Level save(Level level) {
         return levelRepository.save(level);
@@ -41,5 +46,12 @@ public class LevelService {
         PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
 
         return levelRepository.findAllByLanguageId(pageRequest, id);
+    }
+
+    public void addLevelToStudent(Integer idLevel, Long idUsuario) {
+        var level = this.findLevelById(idLevel);
+        var user = usuarioService.findById(idUsuario);
+        var studentLevel = StudentLevel.builder().usuario(user).level(level).build();
+        studentLevelRepository.save(studentLevel);
     }
 }
