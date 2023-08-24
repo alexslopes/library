@@ -3,16 +3,9 @@ package br.com.cabidiomas.library.module.level.controller;
 import br.com.cabidiomas.library.module.language.service.LanguageService;
 import br.com.cabidiomas.library.module.level.service.LevelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/admin/level")
