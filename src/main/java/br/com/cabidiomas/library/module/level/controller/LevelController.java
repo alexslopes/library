@@ -46,11 +46,12 @@ public class LevelController {
                 pageRequest, levelPage.getTotalElements());
     }
 
-    @GetMapping("obter-modulos-do-usuario/{idUsuario}")
+    @GetMapping("obter-modulos-do-usuario/{idUsuario}/{idIdioma}")
     public List<LevelDto> getLevelForStudent(
-            @PathVariable Long idUsuario
+            @PathVariable Long idUsuario,
+            @PathVariable Integer idIdioma
     ) {
-        return levelService.getLevelUsuario(idUsuario).stream().map(LevelMapper::entityToDto).collect(Collectors.toList());
+        return levelService.getLevelUsuario(idUsuario, idIdioma).stream().map(LevelMapper::entityToDto).collect(Collectors.toList());
     }
 
 }

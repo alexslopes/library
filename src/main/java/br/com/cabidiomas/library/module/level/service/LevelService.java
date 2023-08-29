@@ -57,7 +57,7 @@ public class LevelService {
         studentLevelRepository.save(studentLevel);
     }
 
-    public List<Level> getLevelUsuario(Long idUsuario) {
-        return studentLevelRepository.findLevelByUsuarioId(idUsuario);
+    public List<Level> getLevelUsuario(Long idUsuario, Integer idIdioma) {
+        return studentLevelRepository.findLevelByUsuarioId(idUsuario, idIdioma);
     }
 }
