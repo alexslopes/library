@@ -47,4 +47,13 @@ public class LevelAdminController {
        levelService.addLevelToStudent(idLevel, idUsuario);
     }
 
+    @DeleteMapping("deletar-modulo-para-usuario/{idLevel}/{idUsuario}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLevelForStudent(
+            @PathVariable Integer idLevel,
+            @PathVariable Long idUsuario
+    ) {
+        levelService.deleteLevelToStudent(idLevel, idUsuario);
+    }
+
 }

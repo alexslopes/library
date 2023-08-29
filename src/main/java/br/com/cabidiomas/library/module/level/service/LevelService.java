@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -59,5 +60,10 @@ public class LevelService {
 
     public List<Level> getLevelUsuario(Long idUsuario, Integer idIdioma) {
         return studentLevelRepository.findLevelByUsuarioId(idUsuario, idIdioma);
+    }
+
+    @Transactional
+    public void deleteLevelToStudent(Integer idLevel, Long idUsuario) {
+        studentLevelRepository.deleteLevelByUsuarioId(idUsuario, idLevel);
     }
 }
