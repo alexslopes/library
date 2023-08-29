@@ -1,12 +1,15 @@
 package br.com.cabidiomas.library.module.level.controller;
 
 
+import br.com.cabidiomas.library.module.level.model.Level;
+import br.com.cabidiomas.library.module.level.model.StudentLevel;
 import br.com.cabidiomas.library.module.level.service.LevelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +44,13 @@ public class LevelController {
         return new PageImpl<>(
                 levelDtos,
                 pageRequest, levelPage.getTotalElements());
+    }
+
+    @GetMapping("obter-modulos-do-usuario/{idUsuario}")
+    public List<LevelDto> getLevelForStudent(
+            @PathVariable Long idUsuario
+    ) {
+        return levelService.getLevelUsuario(idUsuario).stream().map(LevelMapper::entityToDto).collect(Collectors.toList());
     }
 
 }

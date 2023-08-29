@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LevelService {
@@ -53,5 +55,9 @@ public class LevelService {
         var user = usuarioService.findById(idUsuario);
         var studentLevel = StudentLevel.builder().usuario(user).level(level).build();
         studentLevelRepository.save(studentLevel);
+    }
+
+    public List<Level> getLevelUsuario(Long idUsuario) {
+        return studentLevelRepository.findLevelByUsuarioId(idUsuario);
     }
 }
